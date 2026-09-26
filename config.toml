@@ -1,53 +1,63 @@
-enable-module-update = true # set this to false if you do not want to receive updates for the module
+# ============================================================
+#  config.toml — Morphe APK Build | YouTube ONLY
+#  Hybrid build (Structure from tanishqmanuja + Patches from vietanhbui2000)
+#  Unique config, created on 2026-09-27
+# ============================================================
+
+enable-module-update = false
 parallel-jobs = 1
 
-# add 'enabled = false' for not patching a specific app or remove it from the config
-# see https://github.com/j-hc/revanced-magisk-module/blob/main/CONFIG.md for more detailed explanations
-
-# you can use rvmm-config-gen to generate a config
-
-[YouTube]
-app-name = "YouTube"
-module-prop-name = "yt-rvx"
-patches-source = "inotia00/revanced-patches"
-cli-source = "inotia00/revanced-cli"
-rv-brand = "ReVanced eXtended"
-build-mode = "module"
-apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube"
-uptodown-dlurl = "https://youtube.en.uptodown.com/android"
-archive-dlurl = "https://archive.org/download/jhc-apks/apks/com.google.android.youtube"
-
+# ------------------------------------------------------------
+#  YouTube-Morphe (Only this, everything else removed)
+# ------------------------------------------------------------
 [YouTube-Morphe]
+enabled = true
 app-name = "YouTube"
-module-prop-name = "yt-morphe"
-patches-source = "MorpheApp/morphe-patches"
+
+# === Morphe sources ===
 cli-source = "MorpheApp/morphe-cli"
+patches-source = "MorpheApp/morphe-patches"
 rv-brand = "Morphe"
-build-mode = "module"
-apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube"
+
+# === Build parameters ===
+build-mode = "apk"       # Building standalone APK (not Magisk module)
+version = "auto"         # Auto-select compatible APK version
+arch = "arm64-v8a"       # Only your architecture for faster builds
+
+# === APK download sources (3 fallbacks) ===
+apkmirror-dlurl = "https://apkmirror.com/apk/google-inc/youtube/"
 uptodown-dlurl = "https://youtube.en.uptodown.com/android"
 archive-dlurl = "https://archive.org/download/jhc-apks/apks/com.google.android.youtube"
 
-[Music]
-app-name = "Music"
-module-prop-name = "ytm-rvx"
-patches-source = "inotia00/revanced-patches"
-cli-source = "inotia00/revanced-cli"
-rv-brand = "ReVanced eXtended"
-build-mode = "module"
-arch = "both"
-apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube-music"
-uptodown-dlurl = "https://youtube-music.en.uptodown.com/android"
-archive-dlurl = "https://archive.org/download/jhc-apks/apks/com.google.android.apps.youtube.music"
+# === Modern patches (sourced from vietanhbui2000, as of August 2026) ===
+# All best features enabled: SponsorBlock, Return YouTube Dislike, GmsCore, background playback, etc.
+included-patches = """\
+  'Add to queue' 'Alternative thumbnails' 'Ambient mode' \
+  'Bypass image region restrictions' 'Bypass link redirects' 'Captions' \
+  'Change form factor' 'Change header' 'Change start page' \
+  'Check watch history domain name resolution' 'Copy video link' \
+  'Custom player overlay opacity' 'Disable DRC audio' 'Disable QUIC protocol' \
+  'Disable Shorts resuming on startup' 'Disable double tap actions' \
+  'Disable fullscreen gestures' 'Disable haptic feedback' 'Disable layout updates' \
+  'Disable player popup panels' 'Disable rolling number animations' \
+  'Disable sign in to TV popup' 'Disable video codecs' 'Double tap to seek' \
+  'Downloads' 'Exit fullscreen mode' 'Force original audio' \
+  'GmsCore support' 'Hide Shorts components' 'Hide ads' 'Hide autoplay preview' \
+  'Hide end screen cards' 'Hide end screen suggested video' 'Hide info cards' \
+  'Hide layout components' 'Hide player flyout menu components' \
+  'Hide player overlay buttons' 'Hide related video overlay' 'Hide related videos' \
+  'Hide timestamp' 'Hide video action buttons' 'Loop video' \
+  'Media notification controls' 'Miniplayer' 'Navigation bar' 'Network proxy' \
+  'Open Shorts in regular player' 'Open channel of live avatar' \
+  'Open links externally' 'Open system share sheet' 'Open videos fullscreen' \
+  'Override YouTube Music buttons' 'Play all' 'Playback in feeds' \
+  'Playback speed' 'Reload video' 'Remove background playback restrictions' \
+  'Remove viewer discretion dialog' 'Return YouTube Dislike' 'Sanitize sharing links' \
+  'Save to watch later' 'Seekbar' 'Settings menu filter' 'Shorts autoplay' \
+  'SponsorBlock' 'Spoof app version' 'Spoof device dimensions' \
+  'Spoof video streams' 'Swipe controls' 'Video quality' \
+  'Voice over translation' 'Wide search bar' \
+  """
 
-[Music-Morphe]
-app-name = "Music"
-module-prop-name = "ytm-morphe"
-patches-source = "MorpheApp/morphe-patches"
-cli-source = "MorpheApp/morphe-cli"
-rv-brand = "Morphe"
-build-mode = "module"
-arch = "both"
-apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube-music"
-uptodown-dlurl = "https://youtube-music.en.uptodown.com/android"
-archive-dlurl = "https://archive.org/download/jhc-apks/apks/com.google.android.apps.youtube.music"
+# === What we disable (to preserve design and signature) ===
+excluded-patches = "'Custom branding' 'Enable debugging' 'Theme'"
